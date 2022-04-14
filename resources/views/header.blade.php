@@ -1,3 +1,7 @@
+@section('js-files')
+  <script src="{{ asset("js/script1.js") }}"></script>
+@endsection
+
 @section('header')
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">

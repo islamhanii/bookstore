@@ -7,9 +7,10 @@
         <meta name="description" content=""/>
         
         <title>Bookstore |@yield("page-title")</title>
+        <link rel="icon" type="image/x-icon" href="{{asset("images/bookstore-icon.png")}}">
         
         <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}"/>
-        <link rel="stylesheet" href="{{ asset("css/main.css") }}"/>
+        @yield("css-files")
     </head>
 
     <body>
@@ -21,6 +22,6 @@
 
         <script src="{{ asset("js/popper.min.js") }}"></script>
         <script src="{{ asset("js/bootstrap.min.js") }}"></script>
-        <script src="{{ asset("js/script1.js") }}"></script>
+        @yield("js-files")
     </body>
 </html>

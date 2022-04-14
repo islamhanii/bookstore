@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
     // function show all books
     public function index() {
-        $items = Book::select('id', 'name', 'desc', 'author')->paginate(8);
+        $items = Book::select('id', 'name', 'desc', 'img', 'author')->paginate(12);
 
-        return view('index', [
+        return view('books.index', [
             "books" => $items
         ]);
     }
@@ -22,7 +23,7 @@ class BookController extends Controller
     public function show($id) {
         $book = Book::findOrFail($id);
 
-        return view('show-book', [
+        return view('books.show', [
             "book" => $book
         ]);
     }
@@ -31,13 +32,13 @@ class BookController extends Controller
 
     // function search books contains specific word
     public function search($keyword) {
-        $books = Book::select('id', 'name', 'desc', 'author')
+        $books = Book::select('id', 'name', 'desc', 'img', 'author')
                 ->orWhere("name", "like", "%$keyword%")
                 ->orWhere("desc", "like", "%$keyword%")
                 ->orWhere("author", "like", "%$keyword%")
-                ->paginate(8);
+                ->paginate(12);
 
-        return view("search-books", [
+        return view("books.search", [
             'keyword' => $keyword,
             'books' => $books
         ]);
@@ -47,7 +48,7 @@ class BookController extends Controller
 
     // function show create book form
     public function create() {
-        return view('create-book');
+        return view('books.create');
     }
 
     /************************************************************************/
@@ -58,8 +59,10 @@ class BookController extends Controller
             'name' => 'required|string|min:5|max:255',
             'author' => 'required|string|min:5|max:100',
             'desc' => 'required|string|min:75|max:65530',
-            'img' => 'mimes:jpg,jpeg,png|size:2048'
+            'img' => 'required|image|mimes:jpg,jpeg,png|max:1024'
         ]);
+
+        $path = Storage::putFile("books", $request->file("img"));
 
         // read data
         $name = $request->name;
@@ -69,7 +72,8 @@ class BookController extends Controller
         Book::create([
             'name' => $name,
             'author' => $author,
-            'desc' => $desc
+            'desc' => $desc,
+            'img' => $path
         ]);
 
         return redirect(url("/books"));
@@ -81,7 +85,7 @@ class BookController extends Controller
     public function edit($id) {
         $book = Book::findOrFail($id);
 
-        return view('edit-book', [
+        return view('books.edit', [
             'book' => $book
         ]);
     }
@@ -90,14 +94,20 @@ class BookController extends Controller
 
     // function update exist book
     public function update($id, Request $request) {
-        $book = Book::findOrFail($id);
-
         $request->validate([
             'name' => 'required|string|min:5|max:255',
             'author' => 'required|string|min:5|max:100',
             'desc' => 'required|string|min:75|max:65530',
-            'img' => 'image|mimes:jpg,jpeg,png|size:2048'
+            'img' => 'image|mimes:jpg,jpeg,png|max:1024'
         ]);
+        
+        $book = Book::findOrFail($id);
+        $path = $book->img;
+
+        if($request->hasFile("img")) {
+            if($path !== null)  Storage::delete($path);
+            $path = Storage::putFile("books", $request->file("img"));
+        }
 
         // read data
         $name = $request->name;
@@ -107,7 +117,8 @@ class BookController extends Controller
         $book->update([
             'name' => $name,
             'author' => $author,
-            'desc' => $desc
+            'desc' => $desc,
+            'img' => $path
         ]);
 
         return redirect(url("/books/show/{$id}"));
@@ -117,7 +128,9 @@ class BookController extends Controller
 
     // function delet exist book
     public function delete($id) {
-        Book::findOrFail($id)->delete();
+        $book = Book::findOrFail($id);
+        Storage::delete($book->img);
+        $book->delete();
 
         return redirect(url("/books"));
     } 

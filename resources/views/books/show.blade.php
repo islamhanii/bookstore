@@ -3,10 +3,17 @@
 
 @section('page-title') {{ $book->name }} @endsection
 
+@section('css-files')
+    <link rel="stylesheet" href="{{ asset("css/main.css") }}"/>
+@endsection
+
 @section('main')
 
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-5 mb-4">
+            <img class="img-max w-100" src="{{ $book->img?asset("uploads/{$book->img}"):asset("images/default-book.jfif") }}" alt="{{ $book->name }}}">
+        </div>
+        <div class="col-md-7 mb-4">
             <h1>{{ $book->name }}</h2>
             <p>By <strong>{{ $book->author }}</strong></p>
             <p>{{ $book->desc }}</p>
@@ -20,9 +27,6 @@
                 </form>
             </div>
             <a href="{{ url("/books") }}"><button class="btn btn-primary">Back</button></a>
-        </div>
-        <div class="col-md-5">
-            <img class="w-100" src="{{ asset("images/default.jfif") }}" alt="{{ $book->name }}}">
         </div>
     </div>
 
