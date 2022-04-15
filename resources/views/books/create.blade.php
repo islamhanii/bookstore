@@ -5,6 +5,10 @@
 @section('active-books-link') active @endsection
 @section('active-create-book-link') dropdown-active @endsection
 
+@section('css-files')
+    <link rel="stylesheet" href="{{ asset("css/main.css") }}"/>
+@endsection
+
 @section('main')
     <div >
         <div class="d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 150px);">

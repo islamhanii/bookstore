@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,15 @@ Route::get('/books/edit/{id}', [BookController::class, 'edit']);
 Route::post('/books/update/{id}', [BookController::class, 'update']);
 
 Route::post('/books/delete/{id}', [BookController::class, 'delete']);
+
+/**********************************************************************/
+
+Route::get('/cats', [CatController::class, 'index']);
+
+Route::get('/cats/create', [CatController::class, 'create']);
+Route::post('/cats/store', [CatController::class, 'store']);
+
+Route::get('/cats/edit/{id}', [CatController::class, 'edit']);
+Route::post('/cats/update/{id}', [CatController::class, 'update']);
+
+Route::post('/cats/delete/{id}', [CatController::class, 'delete']);

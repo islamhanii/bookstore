@@ -10,10 +10,10 @@
 @section('main')
 
     <div class="row">
-        <div class="col-md-5 mb-4">
+        <div class="col-md-5 mb-4 order-md-2">
             <img class="img-max w-100" src="{{ $book->img?asset("uploads/{$book->img}"):asset("images/default-book.jfif") }}" alt="{{ $book->name }}}">
         </div>
-        <div class="col-md-7 mb-4">
+        <div class="col-md-7 mb-4 order-md-1">
             <h1>{{ $book->name }}</h2>
             <p>By <strong>{{ $book->author }}</strong></p>
             <p>{{ $book->desc }}</p>

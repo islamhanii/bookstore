@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('books', function (Blueprint $table) {
+        Schema::create('cats', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->text('desc');
-            $table->string('img', 50)->nullable();
-            $table->string('author', 100);
-            $table->foreignId('cat_id')->constrained();
+            $table->string('name', 50);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrent();
         });
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        Schema::dropIfExists('cats');
     }
 };
