@@ -3,15 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
 use App\Models\Cat;
 
 class CatController extends Controller
 {
     public function index() {
-        $cats = Cat::paginate(12);
+        $cats = Cat::paginate(10);
 
         return view('cats.index', [
             "cats" => $cats
+        ]);
+    }
+
+    /******************************************************************/
+
+    public function show($id) {
+        $cat = Cat::findOrFail($id);
+
+        $books = Book::select('id', 'name', 'desc', 'img')
+                      ->where('books.cat_id', $id)
+                      ->orderBy('books.id', 'desc')
+                      ->paginate(12);
+        
+        return view('cats.show', [
+            'cat' => $cat,
+            'books' => $books
         ]);
     }
 
@@ -63,7 +80,7 @@ class CatController extends Controller
             'name' => $name
         ]);
 
-        return redirect(url("/cats"));
+        return redirect(url("/cats/show/{$id}"));
     }
 
     /******************************************************************/

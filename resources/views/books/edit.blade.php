@@ -33,6 +33,22 @@
                         <label for="exampleFormControlTextarea" class="form-label">Book Description*</label>
                         <textarea name="desc" class="form-control" id="exampleFormControlTextarea" rows="3">{{ old('desc')?old('desc'):$book->desc }}</textarea>
                     </div>
+                    <div class="form-group mb-3">
+                        <label for="inputSelector" class="form-label">Book Category*</label>
+                        <select class="form-select" id="inputSelector" aria-label="Default select example" name="cat_id">
+                            <option selected disabled>Select Category</option>
+                            @foreach($cats as $cat)
+                                <option value="{{ $cat->id }}" 
+                                    @if(old('cat_id'))
+                                        @selected(old('cat_id') == $cat->id)
+                                    @else
+                                        @selected($book->cat_id == $cat->id) }}
+                                    @endif>
+                                    {{ $cat->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Book Image</label>
                         <input class="form-control" type="file" name="img" id="formFile">

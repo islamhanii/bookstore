@@ -1,7 +1,7 @@
 @extends('layout')
 @extends('header')
 
-@section('page-title') Create Book @endsection
+@section('page-title') Create Category @endsection
 @section('active-cats-link') active @endsection
 @section('active-create-cat-link') dropdown-active @endsection
 

@@ -1,15 +1,14 @@
 @extends('layout')
 @extends('header')
 
-@section('page-title') Search Books @endsection
+@section('page-title') {{ $cat->name }} Category  @endsection
 
 @section('css-files')
     <link rel="stylesheet" href="{{ asset("css/main.css") }}"/>
 @endsection
 
 @section('main')
-
-    <h1 class="mb-4 text-center">Search Books about <small class="text-muted fs-4">{{ $keyword }}</small></h1>
+    <h1 class="mb-4 text-center"><span class="text-muted">{{ $cat->name }}</span> Category</h1>
 
     <div class="mb-4">
         <div class="items-table row">
@@ -17,14 +16,14 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="card text-white bg-dark mb-3">
                     <a href="{{ url("/books/show/{$book->id}") }}" class="overflow-hidden">
-                        <img src="{{ $book->img?asset("uploads/{$book->img}"):asset("images/default-book.jfif") }}" class="card-img-top" alt="image{{ $book->name }}">
+                        <img src="{{ $book->img?asset("uploads/{$book->img}"):asset("images/default-book.jfif") }}" class="card-img-top " alt="image{{ $book->name }}">
                     </a>
                     <div class="card-body">
                         <h5 class="card-title"><a href="{{ url("/books/show/{$book->id}") }}" class="link-warning"> {{ $book->name }} </a></h5>
                         <p class="card-text">{{ $book->desc }}</p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">{{ $book->cat->name }}</small>
+                        <small class="text-muted">{{ $cat->name }}</small>
                     </div>
                 </div>
             </div>

@@ -17,16 +17,16 @@
             <div class="col-11 d-flex justify-content-between bg-dark text-white rounded-3 p-0 mb-4">
                 <div class="d-flex align-items-center flex-grow-1 rounded-start-3">
                     <div class="p-3 bg-warning rounded-start h-100 text-black fw-bold">{{ $loop->iteration }}</div>
-                    <div class="flex-grow-1 px-2">{{ $cat->name }}</div>
+                    <div class="flex-grow-1 px-2"><a href="{{ url("/cats/show/{$cat->id}") }}" class="text-white text-decoration-none">{{ $cat->name }}</a></div>
                     <div class="text-muted d-none d-md-block fst-italic">Last update from 
 
-                        @if(($time = (time() - strtotime($cat->updated_at))) <= 60)
+                        @if(($time = (time() - strtotime($cat->updated_at))) < 60)
                             {{ floor($time)." seconds" }}
-                        @elseif(($time = $time/60) <= 60)
+                        @elseif(($time = $time/60) < 60)
                             {{ floor($time)." minutes" }}
-                        @elseif(($time = $time/60) <= 60)
+                        @elseif(($time = $time/60) < 24)
                             {{ floor($time)." hours" }}
-                        @elseif(($time = $time/24)<=24)
+                        @elseif(($time = $time/24) < 365)
                             {{ floor($time)." days" }}
                         @elseif($time = $time/365)
                             {{ floor($time)." years" }}

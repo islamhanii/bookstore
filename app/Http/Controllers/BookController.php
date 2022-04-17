@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Cat;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
     // function show all books
     public function index() {
-        $items = Book::select('id', 'name', 'desc', 'img', 'author')->paginate(12);
+        $items = Book::select('id', 'name', 'desc', 'img', 'cat_id')->orderBy('id', 'desc')->paginate(12);
 
         return view('books.index', [
             "books" => $items
@@ -32,7 +33,7 @@ class BookController extends Controller
 
     // function search books contains specific word
     public function search($keyword) {
-        $books = Book::select('id', 'name', 'desc', 'img', 'author')
+        $books = Book::select('id', 'name', 'desc', 'img', 'cat_id')->orderBy('id', 'desc')
                 ->orWhere("name", "like", "%$keyword%")
                 ->orWhere("desc", "like", "%$keyword%")
                 ->orWhere("author", "like", "%$keyword%")
@@ -48,7 +49,10 @@ class BookController extends Controller
 
     // function show create book form
     public function create() {
-        return view('books.create');
+        $cats = Cat::select('id', 'name')->get();
+        return view('books.create', [
+            'cats' => $cats
+        ]);
     }
 
     /************************************************************************/
@@ -59,7 +63,8 @@ class BookController extends Controller
             'name' => 'required|string|min:5|max:255',
             'author' => 'required|string|min:5|max:100',
             'desc' => 'required|string|min:75|max:65530',
-            'img' => 'required|image|mimes:jpg,jpeg,png|max:1024'
+            'cat_id' => 'required|integer|exists:cats,id',
+            'img' => 'required|image|mimes:jpg,jpeg,png,jfif|max:1024'
         ]);
 
         $path = Storage::putFile("books", $request->file("img"));
@@ -67,12 +72,14 @@ class BookController extends Controller
         // read data
         $name = $request->name;
         $author = $request->author;
+        $cat_id = $request->cat_id;
         $desc = $request->desc;
 
         Book::create([
             'name' => $name,
             'author' => $author,
             'desc' => $desc,
+            'cat_id' => $cat_id,
             'img' => $path
         ]);
 
@@ -84,9 +91,11 @@ class BookController extends Controller
     // function show edit book form
     public function edit($id) {
         $book = Book::findOrFail($id);
+        $cats = Cat::select('id', 'name')->get();
 
         return view('books.edit', [
-            'book' => $book
+            'book' => $book,
+            'cats' => $cats
         ]);
     }
 
@@ -98,7 +107,8 @@ class BookController extends Controller
             'name' => 'required|string|min:5|max:255',
             'author' => 'required|string|min:5|max:100',
             'desc' => 'required|string|min:75|max:65530',
-            'img' => 'image|mimes:jpg,jpeg,png|max:1024'
+            'cat_id' => 'required|integer|exists:cats,id',
+            'img' => 'image|mimes:jpg,jpeg,png,jfif|max:1024'
         ]);
         
         $book = Book::findOrFail($id);
@@ -113,11 +123,13 @@ class BookController extends Controller
         $name = $request->name;
         $author = $request->author;
         $desc = $request->desc;
+        $cat_id = $request->cat_id;
 
         $book->update([
             'name' => $name,
             'author' => $author,
             'desc' => $desc,
+            'cat_id' => $cat_id,
             'img' => $path
         ]);
 

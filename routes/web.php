@@ -34,6 +34,7 @@ Route::post('/books/delete/{id}', [BookController::class, 'delete']);
 /**********************************************************************/
 
 Route::get('/cats', [CatController::class, 'index']);
+Route::get('/cats/show/{id}', [CatController::class, 'show']);
 
 Route::get('/cats/create', [CatController::class, 'create']);
 Route::post('/cats/store', [CatController::class, 'store']);

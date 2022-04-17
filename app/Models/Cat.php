@@ -10,4 +10,8 @@ class Cat extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'updated_at'];
+
+    public function books() {
+        return $this->hasMany('App\Models\Book');
+    }
 }

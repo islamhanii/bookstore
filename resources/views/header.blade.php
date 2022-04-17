@@ -34,7 +34,7 @@
                     </li>
                 </ul>
                 <div id="search-form" class="d-flex mb-0">
-                    <input class="form-control me-2" placeholder="Search Book..." aria-label="Search">
+                    <input class="form-control me-2" placeholder="Search Books..." aria-label="Search">
                     <button class="btn btn-outline-warning">Search</button>
                 </div>
             </div>
