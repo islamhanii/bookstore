@@ -19,7 +19,7 @@
                 <h4 class="text-primary"><a href="{{ url("/cats/show/{$book->cat->id}") }}" class="text-decoration-none">({{ $book->cat->name }})</a></h4>
             </div>
             <p>By <strong>{{ $book->author }}</strong></p>
-            <p>{{ $book->desc }}</p>
+            <p><?= nl2br(htmlspecialchars($book->desc)) ?></p>
             <p>Created at: <small>{{ $book->created_at }}</small></p>
             <p>Updated at: <small>{{ $book->updated_at }}</small></p>
             <div class="d-flex">

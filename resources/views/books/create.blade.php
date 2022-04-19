@@ -17,7 +17,7 @@
                 <form class="g-3 border border-3 border-primary rounded-3 p-4 mb-5" action="{{ url("/books/store") }}" method="POST" enctype="multipart/form-data">
                     @if ($errors->any())
                     
-                    <div class="col-12 mb-4 alert-danger rounded-3 p-2">
+                    <div class="col-12 mb-2 alert-danger rounded-3 p-2">
                         @foreach ($errors->all() as $error)
                         <p class="mb-0 lh-base">{{ $error }}</p>
                         @endforeach
