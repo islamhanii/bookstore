@@ -22,13 +22,17 @@
             <p><?= nl2br(htmlspecialchars($book->desc)) ?></p>
             <p>Created at: <small>{{ $book->created_at }}</small></p>
             <p>Updated at: <small>{{ $book->updated_at }}</small></p>
-            <div class="d-flex">
-                <a href="{{ url("/books/edit/{$book->id}") }}"><button class="btn btn-info me-2">Edit</button></a>
-                <form action="{{ url("/books/delete/{$book->id}") }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
+            @auth
+            <div class="d-flex mb-3">
+                <a href="{{ url("/books/edit/{$book->id}") }}"><button class="btn btn-info">Edit</button></a>
+                @if(auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
+                    <form action="{{ url("/books/delete/{$book->id}") }}" method="POST" class="mb-0 ms-2">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                @endif
             </div>
+            @endauth
             <a href="{{ url("/books") }}"><button class="btn btn-primary">Back</button></a>
         </div>
     </div>

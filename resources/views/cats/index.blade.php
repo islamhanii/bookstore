@@ -18,7 +18,7 @@
                 <div class="d-flex align-items-center flex-grow-1 rounded-start-3">
                     <div class="p-3 bg-warning rounded-start h-100 text-black fw-bold">{{ $loop->iteration }}</div>
                     <div class="flex-grow-1 px-2"><a href="{{ url("/cats/show/{$cat->id}") }}" class="text-white text-decoration-none">{{ $cat->name }}</a></div>
-                    <div class="text-muted d-none d-md-block fst-italic">Last update from 
+                    <div class="text-muted d-none d-md-block fst-italic pe-3">Last update from 
 
                         @if(($time = (time() - strtotime($cat->updated_at))) < 60)
                             {{ floor($time)." seconds" }}
@@ -34,13 +34,17 @@
                         
                     </div>
                 </div>
-                <div class="d-flex align-items-center px-3">
-                    <a href="{{ url("/cats/edit/{$cat->id}") }}"><button class="btn btn-info me-2">Edit</button></a>
-                    <form action="{{ url("/cats/delete/{$cat->id}") }}" method="POST" class="mb-0">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                @auth
+                <div class="d-flex align-items-center pe-3">
+                    <a href="{{ url("/cats/edit/{$cat->id}") }}"><button class="btn btn-info">Edit</button></a>
+                    @if(auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
+                        <form action="{{ url("/cats/delete/{$cat->id}") }}" method="POST" class="mb-0 ms-2">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    @endif
                 </div>
+                @endauth
             </div>
         @endforeach
     </div>

@@ -2,6 +2,7 @@
 @extends('header')
 
 @section('page-title') Login @endsection
+@section('active-login') active @endsection
 
 @section('css-files')
     <link rel="stylesheet" href="{{ asset("css/main.css") }}"/>

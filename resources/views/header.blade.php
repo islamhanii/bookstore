@@ -6,7 +6,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand text-warning" href="{{ url("/books") }}">Bookstore</a>
-            @auth
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -18,8 +17,12 @@
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item @yield("active-all-books-link")" href="{{ url("/books") }}">All</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item @yield("active-create-book-link")" href="{{ url("/books/create") }}">Create</a></li>
+
+                        @auth
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item @yield("active-create-book-link")" href="{{ url("/books/create") }}">Create</a></li>
+                        @endauth
+
                       </ul>
                     </li>
 
@@ -29,33 +32,39 @@
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item @yield("active-all-cats-link")" href="{{ url("/cats") }}">All</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item @yield("active-create-cat-link")" href="{{ url("/cats/create") }}">Create</a></li>
+
+                        @auth
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item @yield("active-create-cat-link")" href="{{ url("/cats/create") }}">Create</a></li>
+                        @endauth
+
                       </ul>
                     </li>
+
+                    @auth
+                      <li class="nav-item">
+                        <form action="{{ url("/logout") }}" method="POST" class="d-inline">
+                          @csrf
+                          <button type="submit" class="btn link-danger">Logout</button>
+                        </form>
+                      </li>
+                    @endauth
                     
-                    <li class="nav-item">
-                      <form action="{{ url("/logout") }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn link-danger">Logout</button>
-                      </form>
-                    </li>
+                    @guest
+                      <li class="nav-item">
+                        <a class="nav-link @yield("active-register")" href="{{ url("/register") }}">Register</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link @yield("active-login")" href="{{ url("/login") }}">Login</a>
+                      </li>
+                    @endguest
+
                 </ul>
                 <div id="search-form" class="d-flex mb-0">
                     <input class="form-control me-2" placeholder="Search Books..." aria-label="Search">
                     <button class="btn btn-outline-warning">Search</button>
                 </div>
             </div>
-            @endauth
-            @guest
-                
-            <div class="ms-auto" id="navbarScroll">
-              <div id="search-form" class="d-flex">
-                <a href="{{ url("/register") }}"><button class="btn btn-light me-2">Register</button></a>
-                <a href="{{ url("/login") }}"><button class="btn btn-light">Login</button></a>
-              </div>
-            </div>
-            @endguest
         </div>
   </nav>
 @endsection
