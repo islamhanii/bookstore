@@ -1,26 +1,28 @@
 @extends('layout')
 @extends('header')
 
-@section('page-title') All Categories @endsection
-@section('active-cats-link') active @endsection
-@section('active-all-cats-link') dropdown-active @endsection
+@section('page-title') All Users @endsection
+@section('active-users') active @endsection
 
 @section('css-files')
     <link rel="stylesheet" href="{{ asset("css/main.css") }}"/>
 @endsection
 
 @section('main')
-    <h1 class="mb-4 text-center">All Categories</h1>
+    <h1 class="mb-4 text-center">All Users</h1>
 
     <div class="row justify-content-center">
-        @foreach($cats as $cat)
+        @foreach($users as $user)
             <div class="col-11 d-flex justify-content-between bg-dark text-white rounded-3 p-0 mb-4">
                 <div class="d-flex align-items-center flex-grow-1 rounded-start-3">
                     <div class="p-3 bg-warning rounded-start h-100 text-black fw-bold">{{ $loop->iteration }}</div>
-                    <div class="flex-grow-1 px-2"><a href="{{ url("/cats/show/{$cat->id}") }}" class="text-white text-decoration-none">{{ $cat->name }}</a></div>
-                    <div class="text-muted d-none d-md-block fst-italic pe-3">Last update from 
+                    <div class="d-flex flex-column flex-grow-1 px-2">
+                        <a href="{{ url("/cats/show/{$user->id}") }}" class="text-white text-decoration-none">{{ $user->name }} <span class="text-warning"> ({{ ucfirst($user->role) }})</span></a>
+                        <span class="text-muted d-none d-md-block">{{ $user->email }}</span>
+                    </div>
+                    <div class="text-muted d-none d-md-block fst-italic pe-3">Joined from 
 
-                        @if(($time = (time() - strtotime($cat->updated_at))) < 60)
+                        @if(($time = (time() - strtotime($user->created_at))) < 60)
                             {{ floor($time)." seconds" }}
                         @elseif(($time = $time/60) < 60)
                             {{ floor($time)." minutes" }}
@@ -36,16 +38,14 @@
                 </div>
                 @auth
                 <div class="d-flex align-items-center pe-3">
-                    <a href="{{ url("/cats/edit/{$cat->id}") }}"><button class="btn btn-info">Edit</button></a>
-                    @if(auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
-                        <a href="{{ url("/cats/delete/{$cat->id}") }}"><button class="btn btn-danger ms-2">Delete</button></a>
-                    @endif
+                    <a href="{{ url("/users/role/edit/{$user->id}") }}"><button class="btn btn-info">Edit</button></a>
+                    <a href="{{ url("/users/role/delete/{$user->id}") }}"><button class="btn btn-danger ms-2">Delete</button></a>
                 </div>
                 @endauth
             </div>
         @endforeach
     </div>
 
-    {{ $cats->links() }}
+    {{ $users->links() }}
 
 @endsection

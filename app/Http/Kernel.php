@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'deleter' => \App\Http\Middleware\CanDelete::class,
         'manager' => \App\Http\Middleware\IsManager::class,
+        'unmanaged' => \App\Http\Middleware\UnManaged::class,
     ];
 }

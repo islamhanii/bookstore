@@ -108,7 +108,7 @@ class BookController extends Controller
             'author' => 'required|string|min:5|max:100',
             'desc' => 'required|string|min:75|max:65530',
             'cat_id' => 'required|integer|exists:cats,id',
-            'img' => 'image|mimes:jpg,jpeg,png,jfif|max:1024'
+            'img' => 'nullable|image|mimes:jpg,jpeg,png,jfif|max:1024'
         ]);
         
         $book = Book::findOrFail($id);

@@ -42,7 +42,7 @@ class CatController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => 'required|string|min:3|max:50'
+            'name' => 'required|string|min:3|max:50|unique:cats,name'
         ]);
 
         // read data
@@ -69,7 +69,7 @@ class CatController extends Controller
 
     public function update($id, Request $request) {
         $request->validate([
-            'name' => 'required|string|min:3|max:50'
+            'name' => 'required|string|min:3|max:50|unique:cats,name'
         ]);
         
         $cat = Cat::findOrFail($id);

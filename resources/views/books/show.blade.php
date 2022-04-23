@@ -26,10 +26,7 @@
             <div class="d-flex mb-3">
                 <a href="{{ url("/books/edit/{$book->id}") }}"><button class="btn btn-info">Edit</button></a>
                 @if(auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
-                    <form action="{{ url("/books/delete/{$book->id}") }}" method="POST" class="mb-0 ms-2">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <a href="{{ url("/books/delete/{$book->id}") }}"><button class="btn btn-danger ms-2">Delete</button></a>
                 @endif
             </div>
             @endauth

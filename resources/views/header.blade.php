@@ -41,11 +41,17 @@
                       </ul>
                     </li>
 
+                    @if(auth()->check() && auth()->user()->role == 'manager')
+                      <li class="nav-item">
+                        <a class="nav-link @yield("active-users")" href="{{ url("/users") }}">Users</a>
+                      </li>
+                    @endif
+
                     @auth
                       <li class="nav-item">
                         <form action="{{ url("/logout") }}" method="POST" class="d-inline">
                           @csrf
-                          <button type="submit" class="btn link-danger">Logout</button>
+                          <button type="submit" class="btn btn-link link-danger text-decoration-none shadow-none">Logout</button>
                         </form>
                       </li>
                     @endauth

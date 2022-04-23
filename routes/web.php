@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CatController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,16 @@ Route::middleware('auth')->group(function(){
     Route::post('/cats/update/{id}', [CatController::class, 'update']);
 
     Route::middleware('deleter')->group(function() {
-        Route::post('/books/delete/{id}', [BookController::class, 'delete']);
-        Route::post('/cats/delete/{id}', [CatController::class, 'delete']);
+        Route::get('/books/delete/{id}', [BookController::class, 'delete']);
+        Route::get('/cats/delete/{id}', [CatController::class, 'delete']);
+    });
+
+    Route::middleware('manager')->group(function() {
+        Route::get('/users', [UserController::class, 'index']);
+        Route::middleware('unmanaged')->group(function() {
+            Route::get('/users/role/edit/{id}', [UserController::class, 'edit']);
+            Route::post('/users/role/update/{id}', [UserController::class, 'update']);
+            Route::get('/users/role/delete/{id}', [UserController::class, 'delete']);
+        });
     });
 });
