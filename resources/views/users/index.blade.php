@@ -17,7 +17,7 @@
                 <div class="d-flex align-items-center flex-grow-1 rounded-start-3">
                     <div class="p-3 bg-warning rounded-start h-100 text-black fw-bold">{{ $loop->iteration }}</div>
                     <div class="d-flex flex-column flex-grow-1 px-2">
-                        <a href="{{ url("/cats/show/{$user->id}") }}" class="text-white text-decoration-none">{{ $user->name }} <span class="text-warning"> ({{ ucfirst($user->role) }})</span></a>
+                        <a class="text-white text-decoration-none">{{ $user->name }} <span class="text-warning"> ({{ ucfirst($user->role) }})</span></a>
                         <span class="text-muted d-none d-md-block">{{ $user->email }}</span>
                     </div>
                     <div class="text-muted d-none d-md-block fst-italic pe-3">Joined from 
@@ -36,12 +36,12 @@
                         
                     </div>
                 </div>
-                @auth
+                @if($user->role != "manager")
                 <div class="d-flex align-items-center pe-3">
                     <a href="{{ url("/users/role/edit/{$user->id}") }}"><button class="btn btn-info">Edit</button></a>
                     <a href="{{ url("/users/role/delete/{$user->id}") }}"><button class="btn btn-danger ms-2">Delete</button></a>
                 </div>
-                @endauth
+                @endif
             </div>
         @endforeach
     </div>

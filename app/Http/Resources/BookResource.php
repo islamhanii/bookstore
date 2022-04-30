@@ -21,7 +21,7 @@ class BookResource extends JsonResource
             'description' => $this->desc,
             'image' => asset('uploads/' . $this->img),
             'author' => $this->author,
-            'cat_id' => new CatResource(Cat::find($this->cat_id)),
+            'category' => new CatResource(Cat::find($this->cat_id)),
             'created_at' => date('d/m/Y H:i:s', strtotime($this->created_at)),
             'updated_at' => date('d/m/Y H:i:s', strtotime($this->updated_at)),
         ];

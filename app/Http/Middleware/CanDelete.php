@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class CanDelete
 {
@@ -20,7 +21,9 @@ class CanDelete
         if($value == 'admin' || $value == 'manager') {
             return $next($request);
         }
-        
+        if($request->is('api/*')) {
+            return Response::json(["error" => "you don't have the auhtorization to delete data"], 401);
+        }
         return redirect(url("/books"));
     }
 }
