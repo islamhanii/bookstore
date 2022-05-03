@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,6 +34,7 @@ class ApiUserController extends Controller
 
     public function delete($id) {
         User::findOrFail($id)->delete();
+        DB::table('personal_access_tokens')->where('tokenable_id', '=', $id)->delete();
 
         return Response::json(["message" => "user deleted successfully"]);
     }

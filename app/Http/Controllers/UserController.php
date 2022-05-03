@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -40,6 +41,7 @@ class UserController extends Controller
 
     public function delete($id) {
         User::findOrFail($id)->delete();
+        DB::table('personal_access_tokens')->where('tokenable_id', '=', $id)->delete();
 
         return redirect(url("/users"));
     }

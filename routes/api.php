@@ -58,6 +58,4 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 
 
-
-// adel@shakal.com  =>  3|LOEiwQ2ir97z3qHfld9sjDY1kWTWLIcABA19GEEj
 // islamhani433@gmail.com => 4|LkOaVVW1ShtHu8ZqP8kD9WEbqbEGVYcRO3K9tv6s

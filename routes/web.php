@@ -52,7 +52,7 @@ Route::middleware('auth')->group(function(){
         Route::middleware('unmanaged')->group(function() {
             Route::get('/users/role/edit/{id}', [UserController::class, 'edit']);
             Route::post('/users/role/update/{id}', [UserController::class, 'update']);
-            Route::get('/users/role/delete/{id}', [UserController::class, 'delete']);
+            Route::get('/users/delete/{id}', [UserController::class, 'delete']);
         });
     });
 });
