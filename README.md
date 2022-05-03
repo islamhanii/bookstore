@@ -2,6 +2,11 @@
 
 PHP Laravel 9.x project for bookstore website including user view and api; use authentication & authorization for four types of users (guest - user - admin - manager)
 
+* All users can view books and categories
+* All users expect guest can add/edit books and categories
+* only admin and manager can delete books and categories
+* manager manage others' roles and can delete thier accounts
+
 # Postman
 
 ```
