@@ -22,7 +22,7 @@ class CanDelete
             return $next($request);
         }
         if($request->is('api/*')) {
-            return Response::json(["error" => "you don't have the auhtorization to delete data"], 401);
+            return Response::json(["error" => "you aren't auhtorized to delete data"], 401);
         }
         return redirect(url("/books"));
     }
