@@ -29,8 +29,8 @@
                         <label for="inputSelector" class="form-label">User Role*</label>
                         <select class="form-select" id="inputSelector" aria-label="Default select example" name="role">
                             <option selected disabled>Select Role</option>
-                            <option value="user" @selected($user->role == 'user')>User</option>
-                            <option value="admin" @selected($user->role == 'admin')>Admin</option>
+                            <option value="user" @if($user->role == 'user') selected @endif>User</option>
+                            <option value="admin" @if($user->role == 'admin') selected @endif>Admin</option>
                             <option value="manager">Manager</option>
                         </select>
                     </div>

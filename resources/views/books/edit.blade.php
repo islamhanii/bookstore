@@ -44,9 +44,9 @@
                             @foreach($cats as $cat)
                                 <option value="{{ $cat->id }}" 
                                     @if(old('cat_id'))
-                                        @selected(old('cat_id') == $cat->id)
+                                        @if(old('cat_id') == $cat->id) selected @endif
                                     @else
-                                        @selected($book->cat_id == $cat->id) }}
+                                    @if($book->cat_id == $cat->id) selected @endif
                                     @endif>
                                     {{ $cat->name }}
                                 </option>

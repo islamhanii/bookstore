@@ -43,7 +43,7 @@
                         <select class="form-select" id="inputSelector" aria-label="Default select example" name="cat_id">
                             <option selected disabled>Select Category</option>
                             @foreach($cats as $cat)
-                                <option value="{{ $cat->id }}"  @selected(old('cat_id') == $cat->id)>{{ $cat->name }}</option>
+                                <option value="{{ $cat->id }}"  @if(old('cat_id') == $cat->id) selected @endif>{{ $cat->name }}</option>
                             @endforeach
                         </select>
                     </div>

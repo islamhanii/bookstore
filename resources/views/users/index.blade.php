@@ -39,7 +39,7 @@
                 @if($user->role != "manager")
                 <div class="d-flex align-items-center pe-3">
                     <a href="{{ url("/users/role/edit/{$user->id}") }}"><button class="btn btn-info">Edit</button></a>
-                    <a href="{{ url("/users/role/delete/{$user->id}") }}"><button class="btn btn-danger ms-2">Delete</button></a>
+                    <a href="{{ url("/users/delete/{$user->id}") }}"><button class="btn btn-danger ms-2">Delete</button></a>
                 </div>
                 @endif
             </div>

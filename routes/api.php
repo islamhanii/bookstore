@@ -7,6 +7,7 @@ use App\Http\Controllers\ApiBookController;
 use App\Http\Controllers\ApiCatController;
 use App\Http\Controllers\ApiUserController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -59,3 +60,5 @@ Route::middleware('auth:sanctum')->group(function() {
 
 
 // islamhani433@gmail.com => 4|LkOaVVW1ShtHu8ZqP8kD9WEbqbEGVYcRO3K9tv6s
+
+// adel@shakal.com => 8|wKRcmVpcNtjPJwUkG87daPWjiJaaJadIRbcdWB5C
