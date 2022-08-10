@@ -46,7 +46,7 @@
                                     @if(old('cat_id'))
                                         @if(old('cat_id') == $cat->id) selected @endif
                                     @else
-                                    @if($book->cat_id == $cat->id) selected @endif
+                                        @if($book->cat_id == $cat->id) selected @endif
                                     @endif>
                                     {{ $cat->name }}
                                 </option>
